@@ -1,0 +1,21 @@
+import os
+from flask import Flask
+fibapp=Flask(__name__)
+@fibapp.route('/')
+def hello():
+	return "hello world form  PURWANSHI MISHRA"
+
+@fibapp.route('/fib/<int:x>')
+def fib(x):
+	return f"Fibonacci{x}) = {calcfib(x)}"
+
+def calcfib(n):
+	if n==0:
+		return 0
+	b,a=0,1
+	for _ in range(1,n):
+		b,a=a,a+b
+	return a
+
+if __name__ == '__main__':
+	fibapp.run(debug=True)
