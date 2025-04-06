@@ -1,0 +1,33 @@
+pipeline{
+    agent any
+    
+    stages{
+            stage('Clone Repo'){
+                        steps{
+                                git branch:'main',url: 'https://github.com/purwanshi/flask-cron-monitor.git'
+                        }
+                }  
+                
+            stage('install dependencies using docker'){
+                        steps{
+                               script{
+                                   sh 'docker rm -f flask-container || true'
+                                   sh 'docker build -t flask-docker-app'
+                                   sh'docker run -d -p 5000:5000 --name flask-container flask-docker-app'
+                               }
+                   }
+            }
+                
+            stage('Restart systemD service'){
+                steps {
+                        sh 'sudo systemctl restart flask_app'
+                }
+            }
+            stage('Test Endpoint'){
+                steps {
+                        sh 'sleep 5'
+                        sh 'curl https://localhost:5000/'
+                    }
+                }
+            }
+}
