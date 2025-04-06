@@ -1,6 +1,6 @@
 #systemD set up !!
 create file-  sudo nano /etc/systemd/system/flask_app.service
-//
+***
 [Unit]
 Description=Gunicorn instance to serve Flask App
 After=network.target
@@ -17,7 +17,7 @@ ExecStart=/home/princess/flask_app/venv/bin/gunicorn --workers 3 --bind 0.0.0.0:
 
 [Install]
 WantedBy=multi-user.target
-//
+***
 
 -sudo systemctl daemon-reload
 -sudo systemctl start flask_app
@@ -36,7 +36,7 @@ pip install gunicorn flask
 sudo systemctl enable nginx
 ## configuration file-
 -sudo nano /etc/nginx/sites-available/flask_app
-//
+****
 server {
     listen 80;
     server_name localhost;
@@ -49,7 +49,7 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
     }
 }
-//
+****
 
 -sudo ln -s /etc/nginx/sites-available/flask_app /etc/nginx/sites-enabled
 -sudo rm /etc/nginx/sites-enabled/default
