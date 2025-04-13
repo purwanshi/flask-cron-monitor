@@ -1,8 +1,9 @@
 import os
-from prometheus_flask_exporter import PrometheusMMetrics
+from prometheus_flask_exporter import PrometheusMetrics
 from flask import Flask
 
 app=Flask(__name__)
+metrics =PrometheusMetrics(app)
 
 @app.route("/")
 def hello():
@@ -21,4 +22,5 @@ def fact(n):
 	return result
 
 if __name__ == '__main__':
- 	app.run(debug=True,host="0.0.0.0")
+ 	app.run(host='0.0.0.0',port=5000)
+
