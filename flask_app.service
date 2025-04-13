@@ -1,0 +1,14 @@
+[Unit]
+Description=GUnicorn instance to serve flask App
+After=network.target
+
+[Service]
+User=princess
+Group=www-data
+WorkingDirectory=/home/princess/flask_app
+ExecStart=/home/princess/flask_app/venv/bin/gunicorn --workers 3 --bind 0.0.0.0:8000 app:app
+Restart=always
+
+[Install]
+WatendBy=multi-user.target
+
